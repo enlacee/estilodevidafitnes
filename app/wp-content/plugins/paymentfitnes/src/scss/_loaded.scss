@@ -1,0 +1,18 @@
+// ==== STYLES ==== //
+
+// load bourbon sass helpers
+@import "node_modules/bourbon/app/assets/stylesheets/_bourbon";
+
+// Configuration variables and settings
+@import "variables";
+// add mixins
+@import "mixin/general";
+
+// load plugins
+
+// end load plugins
+
+// local styles
+@import "base/general";
+@import "components/general";
+@import "pages/general";

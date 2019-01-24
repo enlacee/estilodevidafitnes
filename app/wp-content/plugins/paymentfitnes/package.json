@@ -1,0 +1,32 @@
+{
+  "name": "paymentfitnes",
+  "main": "gulpfile.js",
+  "private": true,
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "browser-sync": "^2.18.12",
+    "del": "^2.2.2",
+	"eslint": "^4.5.0",
+	"eslint-config-wordpress": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+	"gulp-eslint": "^4.0.0",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-jshint": "^2.0.4",
+	"gulp-md5": "^0.1.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^7.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "gulp-wp-pot": "^2.0.4",
+    "jshint": "^2.9.4",
+    "gulp-pug": "^3.3.0",
+    "gulp-rename": "^1.2.2"
+  },
+  "dependencies": {
+    "bourbon": "^4.3.4"
+  }
+}
