@@ -121,6 +121,16 @@ class PaymentFitnes {
 
 		$this->loader = new PaymentFitnesLoader();
 
+		//
+		// Load composer libraries
+		if (file_exists( plugin_dir_path( dirname( __FILE__ ) ).'/vendor/autoload.php')) {
+			include plugin_dir_path( dirname( __FILE__ ) ).'/vendor/autoload.php';
+		} else {
+			die('You must set up the project dependencies, run the following commands:'.PHP_EOL.
+					'curl -s http://getcomposer.org/installer | php'.PHP_EOL.
+					'php composer.phar install'.PHP_EOL);
+		}
+
 	}
 
 	/**

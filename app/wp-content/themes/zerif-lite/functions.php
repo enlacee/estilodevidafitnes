@@ -2224,3 +2224,58 @@ function zerif_nag_ignore_neve() {
 	}
 }
 add_action( 'admin_init', 'zerif_nag_ignore_neve' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+* ADMIN
+* Agregar clase para ocultar y mostrar inputs en WORDPRESS ADMIN
+*/
+global $current_user;
+$current_user = wp_get_current_user();
+if ( in_array( 'subscriber', (array) $current_user->roles ) ) {
+	//The user has the "author" role
+	add_filter( 'admin_body_class', function( $classes ) {
+		$classes .= ' subscriber';
+		return $classes;
+	} );
+}
+
+
+/*
+* PUBLIC
+* Mostrar y oculat login Iniciar session y Crear cuenta
+*/
+function add_js_functions(){
+	global $current_user;
+
+	if ( in_array( 'subscriber', (array) $current_user->roles ) ) {
+?>
+	<script type="text/javascript">
+	console.log('hide menu LOGIN');
+	document.querySelector("#site-navigation");
+
+	var counterMenu = document.querySelectorAll("#site-navigation ul li").length;
+	document.querySelectorAll("#site-navigation ul li")[counterMenu -1].style='display:none';
+	document.querySelectorAll("#site-navigation ul li")[counterMenu -2].style='display:none';
+	</script>
+<?php
+	}
+}
+?>
+<?php
+add_action('wp_footer', 'add_js_functions');

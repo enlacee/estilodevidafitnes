@@ -95,7 +95,6 @@ class PaymentFitnesAdmin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
 		wp_enqueue_script( $this->paymentfitnes, plugin_dir_url( __FILE__ ) . 'js/paymentfitnes-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
