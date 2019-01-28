@@ -4,9 +4,6 @@
  *
  * @package zerif-lite
  */
-
-
-
 $vendor_file = trailingslashit( get_template_directory() ) . 'vendor/autoload.php';
 if ( is_readable( $vendor_file ) ) {
 	require_once $vendor_file;
@@ -2241,6 +2238,12 @@ add_action( 'admin_init', 'zerif_nag_ignore_neve' );
 
 
 
+
+
+
+
+
+
 /*
 * ADMIN
 * Agregar clase para ocultar y mostrar inputs en WORDPRESS ADMIN
@@ -2255,27 +2258,35 @@ if ( in_array( 'subscriber', (array) $current_user->roles ) ) {
 	} );
 }
 
-
 /*
-* PUBLIC
-* Mostrar y oculat login Iniciar session y Crear cuenta
+* PUBLIC Assets
+* Enqueue front-end scripts and styles
 */
-function add_js_functions(){
-	global $current_user;
+/*
+function theme_enqueue_scripts()
+{
+	// An empty array that can be filled with variables to send to front-end scripts
+	$script_vars = array();
+	$handle_plugin = 'jquery';
 
-	if ( in_array( 'subscriber', (array) $current_user->roles ) ) {
-?>
-	<script type="text/javascript">
-	console.log('hide menu LOGIN');
-	document.querySelector("#site-navigation");
-
-	var counterMenu = document.querySelectorAll("#site-navigation ul li").length;
-	document.querySelectorAll("#site-navigation ul li")[counterMenu -1].style='display:none';
-	document.querySelectorAll("#site-navigation ul li")[counterMenu -2].style='display:none';
-	</script>
-<?php
+	// Pass variables to JavaScript at runtime; see: http://codex.wordpress.org/Function_Reference/wp_localize_script
+	$script_vars = apply_filters('theme_script_vars', $script_vars);
+	if (!empty($script_vars)) {
+		wp_localize_script($handle_plugin, 'jsVars', $script_vars);
 	}
+
 }
-?>
-<?php
-add_action('wp_footer', 'add_js_functions');
+add_action('wp_enqueue_scripts', 'theme_enqueue_scripts');
+
+// Provision the front-end with the appropriate script variables
+function theme_update_script_vars($script_vars = array())
+{
+	// Non-destructively merge script variables if a particular condition is met (e.g. `is_archive()` or whatever); useful for managing many different kinds of script variables
+	return array_merge($script_vars, array(
+		'baseUrl' => get_bloginfo('url'),
+		'ajaxUrl' => admin_url('admin-ajax.php'),
+		'bloginfo' => get_bloginfo('name')
+	));
+}
+add_filter('theme_script_vars', 'theme_update_script_vars');
+*/

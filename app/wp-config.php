@@ -77,7 +77,8 @@ $table_prefix  = 'wp_1tw5vkfwa1_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
+define('WP_ENV', 'dev');
 //define( 'WP_CACHE', true );
 require_once( dirname( __FILE__ ) . '/gd-config.php' );
 define( 'FS_METHOD', 'direct');

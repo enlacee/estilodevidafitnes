@@ -123,6 +123,7 @@ class PaymentFitnes {
 
 		//
 		// Load composer libraries
+		/*
 		if (file_exists( plugin_dir_path( dirname( __FILE__ ) ).'/vendor/autoload.php')) {
 			include plugin_dir_path( dirname( __FILE__ ) ).'/vendor/autoload.php';
 		} else {
@@ -130,7 +131,7 @@ class PaymentFitnes {
 					'curl -s http://getcomposer.org/installer | php'.PHP_EOL.
 					'php composer.phar install'.PHP_EOL);
 		}
-
+		*/
 	}
 
 	/**
@@ -180,6 +181,8 @@ class PaymentFitnes {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+
+		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'culqui_enqueue_scripts' );
 	}
 
 	/**

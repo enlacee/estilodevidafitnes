@@ -21,6 +21,17 @@
 
 			jQuery('form#your-profile h2').eq(3).hide();
 			jQuery('form#your-profile table.form-table').eq(3).hide();
+
+			jQuery('#menu-dashboard').append('<a href="#TB_inline?height=240&amp;width=405&amp;inlineId=hiddenModalContent&amp;modal=true" id="thickBoxLink" class="thickbox">Change Name</a>')
+
+
+			// Check if pageRedirect exit
+			if ( Cookies.get( 'pageRedirect' ) ) {
+				var varURL = Cookies.get( 'pageRedirect' );
+				Cookies.remove( 'pageRedirect' );
+
+				window.location.href = varURL;
+			}
 		}
 	 });
 

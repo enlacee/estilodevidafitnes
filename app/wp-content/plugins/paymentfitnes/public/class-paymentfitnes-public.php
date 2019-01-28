@@ -107,11 +107,10 @@ class PaymentFitnesPublic {
 		$newFileName = PaymentFitnesGulpfile::getFileNameMD5( $fileName );
 
 		if ( file_exists( plugin_dir_path( PAYMENTFITNES_FILE ) . 'public/assets/js/' . $newFileName ) ) {
-			wp_enqueue_script( $this->paymentfitnes, plugin_dir_url( PAYMENTFITNES_FILE ) . 'public/assets/js/' . $newFileName, array( 'jquery' ), $this->version, false );
+			wp_enqueue_script( $this->paymentfitnes, plugin_dir_url( PAYMENTFITNES_FILE ) . 'public/assets/js/' . $newFileName, array( 'jquery', 'culqui-core' ), $this->version, true );
 		} else {
-			wp_enqueue_script( $this->paymentfitnes, plugin_dir_url( PAYMENTFITNES_FILE ) . 'public/assets/js/' . $fileName, array( 'jquery' ), $this->version, false );
+			wp_enqueue_script( $this->paymentfitnes, plugin_dir_url( PAYMENTFITNES_FILE ) . 'public/assets/js/' . $fileName, array( 'jquery', 'culqui-core' ), $this->version, true );
 		}
 
 	}
-
 }

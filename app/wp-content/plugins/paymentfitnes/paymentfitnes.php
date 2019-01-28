@@ -64,6 +64,10 @@ register_deactivation_hook( __FILE__, 'deactivate_paymentfitnes' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/libraries/class-paymentfitnes-gulpfile.php';
+// Add new classs
+require plugin_dir_path( __FILE__ ) . 'includes/libraries/class-paymentfitnes-theme.php'; // 01. config theme
+require plugin_dir_path( __FILE__ ) . 'includes/libraries/class-paymentfitnes-culqi.php'; // 02. config culqi
+
 require plugin_dir_path( __FILE__ ) . 'includes/class-paymentfitnes.php';
 
 /**
