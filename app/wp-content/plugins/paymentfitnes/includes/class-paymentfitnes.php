@@ -165,6 +165,10 @@ class PaymentFitnes {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// Hook para usuarios logueados
+		// add_action('wp_ajax_notify_button_click', 'notify_button_click');
+		$this->loader->add_action( 'wp_ajax_ajax_paymentfitnes', $plugin_admin, 'ajax_paymentfitnes' );
+
 	}
 
 	/**
@@ -180,9 +184,6 @@ class PaymentFitnes {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
-
-		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'culqui_enqueue_scripts' );
 	}
 
 	/**

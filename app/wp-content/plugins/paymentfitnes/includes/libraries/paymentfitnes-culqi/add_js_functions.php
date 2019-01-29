@@ -2,8 +2,8 @@
 
 ?>
 <script type="text/javascript">
-	console.log( 'add_js_functions loaded!!' );
 	var $buttonBuy;
+	var $formData;
 
 	( function( $ ) {
 
@@ -23,7 +23,9 @@
 			};
 
 			$buttonBuy = $( '#buyButton' );
-			( jQuery( 'body' ).hasClass( 'logged-in' ) ) ? jQuery( '#datos-de-compra' ).fadeIn() : false;
+			$formData = $( '#datos-de-compra' );
+
+			( jQuery( 'body' ).hasClass( 'logged-in' ) ) ? $formData.fadeIn() : false;
 
 			// 01 Event click comprar
 			$buttonBuy.on( 'click', function( e ) {
@@ -47,7 +49,7 @@
 			if ( typeof( Culqi ) !== 'undefined' ) {
 
 				// Configura tu llave pública
-				Culqi.publicKey = '<?php echo $this->publicKey; ?>';
+				Culqi.publicKey = '<?php echo PaymentFitnesCulqi::$PUBLIC_KEY; ?>';
 
 				// Configura tu Culqi Checkout
 				Culqi.settings({
@@ -72,12 +74,41 @@
 
 			// Mostramos JSON de objeto error en consola
 			console.log( Culqi.error );
+			alert( 'No se puedo procesar tu pago. Intentalo luego.' )
 		} else {
 			$buttonBuy.prop( 'disabled', true );
 			console.log( Culqi.token.id );
+			jQuery( '#card_token' ).val( Culqi.token.id );
 
 			// 01. Ajax de PAGO
 			// 02. crear proceso ajax php y CREAR tarjeta y cargo
+
+			jQuery.ajax({
+				beforeSend: function (qXHR, settings) {
+					jQuery('#loading').fadeIn();
+				},
+				complete: function () {
+					jQuery('#loading').fadeOut();
+				},
+				type : "post",
+				url : jsVars.ajaxUrl,
+				data : $formData.serialize(),
+				// dataType: 'json',
+				success: function(response) {
+					console.log('response', response);
+					if ( response ) {
+						if (response.status === true) {
+							alert(response.message);
+							window.setTimeout( function(){
+								//	window.location = '<?php ?>';
+								location.reload();
+							}, 2000 );
+						} else {
+							alert('Ocurrio un error. Intente en otro momento.');
+						}
+					}
+				}
+			});
 		}
 	}
 </script>

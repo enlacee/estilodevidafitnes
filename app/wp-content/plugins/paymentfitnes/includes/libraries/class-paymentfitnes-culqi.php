@@ -3,7 +3,13 @@
  *
  */
 class PaymentFitnesCulqi { 
-	
+
+	public static $PUBLIC_KEY = 'pk_test_tSSZYaWVxtNULtvX';
+	public static $PRIVATE_KEY = 'sk_test_NeloGflgK7XYFNRt';
+
+	public static $PLAN_10_DIARIO = 'pln_test_GoDQtovYdKnbrwsV';
+	public static $PLAN_50_MENSUAL = 'pln_test_TmLEvcZzunytmmUC';
+
 	public static function init() {
 		$class = __CLASS__;
 		new $class;
@@ -11,7 +17,7 @@ class PaymentFitnesCulqi {
 
 	public function __construct() {
 		$this->includes();
-		$this->publicKey = 'pk_test_tSSZYaWVxtNULtvX';
+		// $this->publicKey = 'pk_test_tSSZYaWVxtNULtvX';
 		
 
 		add_action( 'wp_footer', array( $this, 'add_js_isLogin' ), 20 ); // Ultima prioridad
@@ -23,6 +29,8 @@ class PaymentFitnesCulqi {
 		add_action( 'admin_enqueue_scripts', array( $this, 'culqui_enqueue_scripts_login' ), 1 );
 
 		// $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'culqui_enqueue_scripts' );
+		add_action( 'show_user_profile', array( $this, 'add_extra_user_profile_fields' ) );
+		// add_action( 'edit_user_profile', array( $this, 'add_extra_user_profile_fields' ) );
 	}
 
 
@@ -94,6 +102,77 @@ class PaymentFitnesCulqi {
 		wp_enqueue_script( 'culqui-core-cookie-admin', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js', false );
 	}
 
+	/**
+	 *
+	 * Crear metadatos CULQI en perfil del Usuario (WP ADMIN)
+	 */
+	public function add_extra_user_profile_fields( $user ){
+		?>
+		<h3><?php esc_html_e( 'Informacion Culqui', 'crf' ); ?></h3>
+
+		<table class="form-table">
+			<tr>
+				<th><label for="culqui_customer_id"><?php _e("Culqui_customer_id"); ?></label></th>
+				<td>
+					<input type="text" name="culqui_customer_id" readonly="" id="culqui_customer_id" value="<?php echo esc_attr( get_the_author_meta( 'culqui_customer_id', $user->ID ) ); ?>" class="regular-text" /><br />
+				</td>
+			</tr>
+			<tr>
+				<th><label for="culqi_card_id"><?php _e("culqi_card_id (ultima tarjeta)"); ?></label></th>
+				<td>
+					<input type="text" name="culqi_card_id" readonly="" id="culqi_card_id" value="<?php echo esc_attr( get_the_author_meta( 'culqi_card_id', $user->ID ) ); ?>" class="regular-text" /><br />
+				</td>
+			</tr>
+			
+			<tr>
+				<th><label for="culqi_subscription_id"><?php _e("culqi_subscription_id"); ?></label></th>
+				<td>
+					<input type="text" name="culqi_subscription_id" readonly="" id="culqi_subscription_id" value="<?php echo esc_attr( get_the_author_meta( 'culqi_subscription_id', $user->ID ) ); ?>" class="regular-text" /><br />
+				</td>
+			</tr>
+
+			<?php if ( !empty( get_the_author_meta( 'culqi_subscription_id', $user->ID ) ) ): ?>
+				<tr>
+					<th><label for="culqi_subscription_id"><?php _e("Suscripción"); ?></label></th>
+					<td>
+						<button class="button" id="dar-de-baja" style="color:red;">Dar de baja</button><br />
+						<script type="text/javascript">
+
+							jQuery( document ).ready(function(){
+
+								jQuery('#dar-de-baja').click(function( e ){
+									e.preventDefault();
+
+									if (confirm('Estas seguro dar de baja?')) {
+										jQuery.ajax({
+											type : "post",
+											url : '<?php echo admin_url('admin-ajax.php'); ?>',
+											data : {
+												'action': 'ajax_paymentfitnes',
+												'culqi_subscription_id': jQuery('#culqi_subscription_id').val()
+											},
+											// dataType: 'json',
+											success: function(response) {
+												console.log('response', response);
+												if ( response ) {
+													if (response.status === true) {
+														location.reload();
+													} else {
+														alert('Ocurrio un error. Intente en otro momento.');
+													}
+												}
+											}
+										});
+									}
+								});
+							});
+						</script>
+					</td>
+				</tr>
+			<?php endif;?>
+		</table>
+	<?php
+	}
 
 }
 
