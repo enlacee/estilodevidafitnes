@@ -55,6 +55,14 @@ $user_info = is_object($user_info) ? $user_info : new stdClass();
 							</div>
 						</div>
 
+						<div class="form-group row">
+							<label for="address" class="col-sm-2 col-form-label"></label>
+							<div class="col-sm-10">
+								<input type="checkbox" class="form-control-plaintext" id="aceptar-terminos" name="aceptar-terminos"> 
+								<a href="#">Aceptar los términos y condiciones</a>
+							</div>
+						</div>
+
 						<br>
 						<!-- Campos oculos -->
 						<input type="hidden" readonly="" name="country_code" value="PE"><br>

@@ -14,7 +14,8 @@
 					jQuery( '#firstname' ).val().length > 0 &&
 					jQuery( '#lastname' ).val().length > 0 &&
 					jQuery( '#email' ).val().length > 0 &&
-					jQuery( '#address' ).val().length > 0
+					jQuery( '#address' ).val().length > 0 &&
+					jQuery( '#aceptar-terminos' ).is(":checked") === true
 				) {
 					flag = true;
 				}
@@ -38,7 +39,7 @@
 						Culqi.open();
 						e.preventDefault();
 					} else {
-						alert( 'Llene todos los campos correctamente.' );
+						alert( 'Llene todos los campos correctamente. Y acepte los términos.' );
 					}
 				} else {
 					$buttonBuy.next().click(); // show popup login
