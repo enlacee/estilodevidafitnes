@@ -59,7 +59,7 @@ $user_info = is_object($user_info) ? $user_info : new stdClass();
 							<label for="address" class="col-sm-2 col-form-label"></label>
 							<div class="col-sm-10">
 								<input type="checkbox" class="form-control-plaintext" id="aceptar-terminos" name="aceptar-terminos"> 
-								<a href="#">Aceptar los términos y condiciones</a>
+								<a href="<?php echo site_url('/terminos-y-condiciones'); ?>">Aceptar los términos y condiciones</a>
 							</div>
 						</div>
 
