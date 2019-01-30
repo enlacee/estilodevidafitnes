@@ -7,8 +7,15 @@ class PaymentFitnesCulqi {
 	public static $PUBLIC_KEY = 'pk_test_tSSZYaWVxtNULtvX';
 	public static $PRIVATE_KEY = 'sk_test_NeloGflgK7XYFNRt';
 
-	public static $PLAN_10_DIARIO = 'pln_test_GoDQtovYdKnbrwsV';
-	public static $PLAN_50_MENSUAL = 'pln_test_TmLEvcZzunytmmUC';
+	// public static $PLAN_10_DIARIO = 'pln_live_7dDJvkPfp1roB9ga';
+	// public static $PLAN_10_NUMBER = 1000;
+	// public static $PLAN_10_DESCRIPTION = 'Suscripción diaria';
+
+	public static $PLAN_50_MENSUAL = 'pln_test_2MVFw5f97V6j5iok';
+	public static $PLAN_50_NUMBER = 5000;
+	public static $PLAN_50_DESCRIPTION = 'Suscripción mensual';
+
+	public static $CURRENCY_CODE = 'PEN';
 
 	public static function init() {
 		$class = __CLASS__;
@@ -17,8 +24,6 @@ class PaymentFitnesCulqi {
 
 	public function __construct() {
 		$this->includes();
-		// $this->publicKey = 'pk_test_tSSZYaWVxtNULtvX';
-		
 
 		add_action( 'wp_footer', array( $this, 'add_js_isLogin' ), 20 ); // Ultima prioridad
 		add_action( 'wp_footer', array( $this, 'add_js_functions' ), 20 ); // Ultima prioridad

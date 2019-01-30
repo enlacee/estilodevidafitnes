@@ -54,9 +54,9 @@
 				// Configura tu Culqi Checkout
 				Culqi.settings({
 					title: jsVars.bloginfo,
-					currency: 'PEN',
-					description: 'Suscripción mensual',
-					amount: 5000
+					currency: '<?php echo PaymentFitnesCulqi::$CURRENCY_CODE; ?>', 
+					description: '<?php echo PaymentFitnesCulqi::$PLAN_50_DESCRIPTION; ?>',
+					amount: <?php echo PaymentFitnesCulqi::$PLAN_50_NUMBER; ?> 
 				});
 			}
 		});
@@ -82,7 +82,6 @@
 
 			// 01. Ajax de PAGO
 			// 02. crear proceso ajax php y CREAR tarjeta y cargo
-
 			jQuery.ajax({
 				beforeSend: function (qXHR, settings) {
 					jQuery('#loading').fadeIn();
@@ -95,16 +94,18 @@
 				data : $formData.serialize(),
 				// dataType: 'json',
 				success: function(response) {
+					var errorMessage = 'Ocurrio un error. Intente en otro momento.';
 					console.log('response', response);
+
 					if ( response ) {
 						if (response.status === true) {
 							alert(response.message);
 							window.setTimeout( function(){
-								//	window.location = '<?php ?>';
 								location.reload();
 							}, 2000 );
 						} else {
-							alert('Ocurrio un error. Intente en otro momento.');
+							errorMessage += (response.message) ? '\n' + response.message : '';
+							alert(errorMessage);
 						}
 					}
 				}

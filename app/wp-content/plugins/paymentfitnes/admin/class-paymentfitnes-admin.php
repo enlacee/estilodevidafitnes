@@ -121,12 +121,6 @@ class PaymentFitnesAdmin {
 			$culqi = new Culqi\Culqi(array('api_key' => PaymentFitnesCulqi::$PRIVATE_KEY));
 
 			try {
-
-				// Eliminar USUARIO (Customers)
-				//$culqi->Customers->delete('cus_test_zdkobPzozh5Ry9aL'); exit;
-				// $culqi->Customers->delete('cus_test_wE98dYCN9KFCSrDJ');
-				// var_dump($culqi->Customers->all());
-
 				// 01. Crear Cliente
 				if ( empty( $culqi_customer_id ) === true ) {
 					$customer = $culqi->Customers->create(
@@ -163,7 +157,7 @@ class PaymentFitnesAdmin {
 				$subscription = $culqi->Subscriptions->create(
 					array(
 						"card_id"=> $card->id,
-						"plan_id" => PaymentFitnesCulqi::$PLAN_10_DIARIO
+						"plan_id" => PaymentFitnesCulqi::$PLAN_50_MENSUAL
 					)
 				);
 				if ( is_object( $subscription ) && isset( $subscription->id ) === true ) {
@@ -177,8 +171,8 @@ class PaymentFitnesAdmin {
 					'message' => 'Su compra ha sido exitosa'
 				);
 			} catch (Exception $e) {
-				echo json_encode($e->getMessage());
-				//wp_send_json($e->getMessage());
+				// echo json_encode($e->getMessage()); // DEBUG muestra errores del proceso
+				$rs = $e->getMessage();
 			}
 
 			wp_send_json( $rs );
@@ -212,6 +206,16 @@ class PaymentFitnesAdmin {
 			
 			wp_send_json( $rs );
 		}
+	}
+
+	/**
+	 * Solo pruebas
+	 */
+	public function eliminarUsandoAPICulqi() {
+		// Eliminar USUARIO (Customers)
+		// $culqi->Customers->delete('cus_test_zdkobPzozh5Ry9aL'); exit;
+		// $culqi->Customers->delete('cus_test_wE98dYCN9KFCSrDJ');
+		// var_dump($culqi->Customers->all());
 	}
 
 }
