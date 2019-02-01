@@ -117,9 +117,9 @@ class PaymentFitnesCulqi {
 
 		<table class="form-table">
 			<tr>
-				<th><label for="culqui_customer_id"><?php _e("Culqui_customer_id"); ?></label></th>
+				<th><label for="culqi_customer_id"><?php _e("culqi_customer_id"); ?></label></th>
 				<td>
-					<input type="text" name="culqui_customer_id" readonly="" id="culqui_customer_id" value="<?php echo esc_attr( get_the_author_meta( 'culqui_customer_id', $user->ID ) ); ?>" class="regular-text" /><br />
+					<input type="text" name="culqi_customer_id" readonly="" id="culqi_customer_id" value="<?php echo esc_attr( get_the_author_meta( 'culqi_customer_id', $user->ID ) ); ?>" class="regular-text" /><br />
 				</td>
 			</tr>
 			<tr>

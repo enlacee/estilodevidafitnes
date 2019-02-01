@@ -42,7 +42,7 @@
 						alert( 'Llene todos los campos correctamente. Y acepte los términos.' );
 					}
 				} else {
-					$buttonBuy.next().click(); // show popup login
+					jQuery("#exampleModal").modal(); // show popup login
 				}
 			});
 
@@ -62,7 +62,7 @@
 			}
 		});
 
-	}( jQuery ) );
+	}(window.jQuery || window.$));
 
 	/*
 	**********************************
@@ -112,6 +112,48 @@
 				}
 			});
 		}
+	}
+
+	/*
+	**********************************
+	* Validation user register
+	***********************************
+	*/
+	function validateFormCrearCuenta(){
+		var $form = jQuery("#form-crear-cuenta");
+
+		jQuery.ajax({
+			beforeSend: function (qXHR, settings) {
+				jQuery('#loading').fadeIn();
+			},
+			complete: function () {
+				jQuery('#loading').fadeOut();
+			},
+			type : "post",
+			url : jsVars.ajaxUrl,
+			data : $form.serialize(),
+			// dataType: 'json',
+			success: function(response) {
+				var errorMessage = 'Ocurrio un error. Intente en otro momento.';
+				console.log('responseee', response);
+
+				if ( response ) {
+					if (response.status === true) {
+						alert(response.message);
+						window.setTimeout( function(){
+							location.reload();
+						}, 500 );
+					} else {
+						errorMessage += (response.message) ? '\n' + response.message : '';
+						alert(errorMessage);
+					}
+				}
+			}
+		});
+
+		$form.trigger("reset");
+
+		return false;
 	}
 </script>
 <?php

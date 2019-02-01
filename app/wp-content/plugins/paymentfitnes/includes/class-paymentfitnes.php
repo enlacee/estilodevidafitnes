@@ -168,6 +168,9 @@ class PaymentFitnes {
 		// Hook para usuarios logueados
 		// add_action('wp_ajax_notify_button_click', 'notify_button_click');
 		$this->loader->add_action( 'wp_ajax_ajax_paymentfitnes', $plugin_admin, 'ajax_paymentfitnes' );
+		// Hook para usuarios no logueados
+		// add_action('wp_ajax_nopriv_ajax_paymentfitnes', 'notify_button_click');
+		$this->loader->add_action( 'wp_ajax_nopriv_ajax_paymentfitnes', $plugin_admin, 'ajax_paymentfitnes' );
 
 	}
 

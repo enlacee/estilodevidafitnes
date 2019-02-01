@@ -59,7 +59,7 @@ $user_info = is_object($user_info) ? $user_info : new stdClass();
 							<label for="address" class="col-sm-2 col-form-label"></label>
 							<div class="col-sm-10">
 								<input type="checkbox" class="form-control-plaintext" id="aceptar-terminos" name="aceptar-terminos"> 
-								<a href="<?php echo site_url('/terminos-y-condiciones'); ?>">Aceptar los términos y condiciones</a>
+								<a target="_blank" href="<?php echo site_url('/terminos-y-condiciones'); ?>">Aceptar los términos y condiciones</a>
 							</div>
 						</div>
 
@@ -77,8 +77,11 @@ $user_info = is_object($user_info) ? $user_info : new stdClass();
 					</form>
 
 					<!-- boton CULQI comprar -->
-					<button id="buyButton" class="btn btn-lg" style="float: left;color:white;">Comprar!</button>
-					<a href="#TB_inline?&width=300&height=130&modal=true&inlineId=obligate-login" class="thickbox" style="display: none;">Comprar modal</a>
+					<!-- Button trigger modal -->
+					<button id="buyButton" class="btn btn-lg" data-toggle="modal" data-target_="#exampleModal"
+						style="float: left;color:white;">
+						Comprar!
+					</button>
 				</article>
 			<?php else: ?>
 				<article  class="status-publish hentry">
@@ -89,20 +92,79 @@ $user_info = is_object($user_info) ? $user_info : new stdClass();
 	</div>
 </div>
 
-<div id="obligate-login" style="display:none;">
-	<p>
-		Debes <strong><a href="<?php echo site_url('/wp-login.php'); ?>"
-			onclick="Cookies.set( 'pageRedirect', '<?php echo get_permalink(); ?>' );">Iniciar Sessión</a></strong>
-		<br>
-		o crear tú  <a href="<?php echo site_url('/wp-login.php?action=register'); ?>"
-			onclick="Cookies.set( 'pageRedirect', '<?php echo get_permalink(); ?>' );">cuenta</a> con nosotros.
-	</p>
+<!-- modal content -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="text-align: left;">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="padding: 8px;border-bottom: none;">
+				<h5 class="modal-title" id="exampleModalLabel" style="display: inline"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>
+				Debes <strong><a href="<?php echo site_url('/wp-login.php'); ?>"
+					onclick="Cookies.set( 'pageRedirect', '<?php echo get_permalink(); ?>' );">Iniciar Sessión</a></strong>
+				o crea tú  <a href="#"
+					onclick="jQuery('#form-crear-cuenta').fadeOut().fadeIn();">cuenta</a> con nosotros.
+				</p>
+
+				<form autocomplete="off" id="form-crear-cuenta" style="display: block"  onsubmit="return validateFormCrearCuenta()">
+					<input type="hidden" readonly="" name="action" value="ajax_paymentfitnes">
+					<input type="hidden" readonly="" name="op" value="crear-usuario">
+
+					<h3 class="entry-title">Crear Cuenta</h3>
+					<div class="form-group row">
+						<label for="firstname" class="col-sm-2 col-form-label">Nombres</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="firstname"
+							value="" required>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="lastname" class="col-sm-2 col-form-label">Apellidos</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="lastname"
+							value="" required>
+						</div>
+					</div>
+					<div class="form-group row" style="">
+						<label for="email" class="col-sm-2 col-form-label" required>Correo</label>
+						<div class="col-sm-10">
+							<input type="email" class="form-control" name="email"
+							value="" required>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="password" class="col-sm-2 col-form-label" >Contraseña</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" name="password" 
+							value="" required minlength="6">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="password" class="col-sm-2 col-form-label"></label>
+						<div class="col-sm-10">
+							<input type="checkbox" class="form-check-input" checked="checked">
+							<label class="form-check-label" for="exampleCheck1">
+								<a target="_blank" href="<?php echo site_url('/terminos-y-condiciones'); ?>">Términos y condiciones</a>
+							</label>
+						</div>
+					</div>
+					<button type="submit" class="btn">Crear Usuario</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- loading -->
 <div id="loading" class="loading" data-value="Cargando..." style="display: none;">
 	<div class="content">Cargando...</div>
 </div>
+
+
 <style type="text/css">
 .loading {
 	background-color: rgba(0,0,0,.7);
@@ -122,6 +184,24 @@ $user_info = is_object($user_info) ? $user_info : new stdClass();
 	width: 35%;
 	background-color: #fff;
 	text-align: center;
+}
+
+/* Apply css to form create account */
+#form-crear-cuenta .form-group{
+	margin-bottom: 6px;
+}
+@media (max-width: 768px) {
+	#TB_ajaxContent p{
+		margin-bottom: 0px;
+		font-size: 0.8em;
+		line-height: 1.5em;
+	}
+	#form-crear-cuenta .form-group{
+		margin-bottom: 0px;
+	}
+	#form-crear-cuenta .form-control{
+		height: 32px;
+	}
 }
 </style>
 <?php

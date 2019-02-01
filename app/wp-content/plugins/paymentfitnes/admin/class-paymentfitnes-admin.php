@@ -112,6 +112,7 @@ class PaymentFitnesAdmin {
 
 		// 01. Realizar baja subscription (SIEMPRE ESPERANDO)
 		$this->eliminar_subscription();
+		$this->crear_nuevo_usuario();
 
 		// 02. Realizar subscripcion
 		if( !$message ) {
@@ -204,6 +205,54 @@ class PaymentFitnesAdmin {
 				echo json_encode($e->getMessage());
 			}
 			
+			wp_send_json( $rs );
+		}
+	}
+
+	public function crear_nuevo_usuario() {
+		$operacionIsValid = (isset( $_POST['op'] ) && ($_POST['op'] === 'crear-usuario')) ? true : false;
+		$rs = [];
+
+		if ( $operacionIsValid === true ) {
+
+			$data = array(
+				'firstname'		=> $_POST['firstname'],
+				'lastname'		=> $_POST['lastname'],
+				'iuser'			=> $_POST['email'], //user
+				'iuser_mail'	=> $_POST['email'], // mail
+				'iuser_pass'	=> wp_generate_password(),
+			);
+
+			if ( null == username_exists( $data['iuser'] ) ) {
+
+				$user_id = wp_create_user($data['iuser'], $data['iuser_pass'], $data['iuser_mail']);
+
+				// set values to super user
+				if (is_int($user_id)) {
+					$wp_user_object = new WP_User($user_id);
+					$wp_user_object->set_role('subscriber');
+					wp_set_password($_POST['password'], $user_id);
+					update_user_meta($user_id, 'first_name', $data['firstname']);
+					update_user_meta($user_id, 'last_name', $data['lastname']);
+
+					//login
+					wp_set_current_user($user_id, $data['iuser']);
+					wp_set_auth_cookie($user_id);
+					do_action('wp_login', $data['iuser']);
+
+					//result
+					$rs = array(
+						'status' => true,
+						'message' => 'El usuario se registro con éxito.'
+					);
+				}
+			} else {
+				$rs = array(
+					'status' => false,
+					'message' => 'El usuario con este correo ya se encuentra registrado.'
+				);
+			}
+
 			wp_send_json( $rs );
 		}
 	}
