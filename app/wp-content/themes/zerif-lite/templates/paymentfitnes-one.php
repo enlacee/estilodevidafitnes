@@ -203,6 +203,11 @@ $user_info = is_object($user_info) ? $user_info : new stdClass();
 		height: 32px;
 	}
 }
+/* FIX MOBILE Layer for mobile conflic (reset values) (POPUP MODAL BOOSTRAP) */
+.mobile-bg-fix-wrap .mobile-bg-fix-whole-site {
+	position: static;
+	z-index: 1;
+}
 </style>
 <?php
 get_footer();
