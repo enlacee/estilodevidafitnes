@@ -1,6 +1,6 @@
 ## estilodevidafitnes
 
-!(thumbnail)[thumbnail.png]
+![thumbail estilodevidafitnes](thumbnail.png)
 
 
 ## Integración de pago Culqi
