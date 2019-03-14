@@ -167,4 +167,4 @@ TAB: Headers
 El parametro de autenticacion en la **llave privada** que culqi te proporciona
 
 
-![DELETE REST CULQI](https://imgur.com/t5bSjuy)
+![DELETE REST CULQI](https://i.imgur.com/t5bSjuy.png)
