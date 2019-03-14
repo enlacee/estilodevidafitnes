@@ -136,3 +136,35 @@ variables necesarias
 
 ## Contributors
 @Altimea
+
+
+
+
+# CULQI API (PRODUCCION) DEVELOPMENT
+
+Usar el API REST culqi
+Aqui se muestra un ejemplo es posible crear eliminar actualizar pero con sus restricciones del propio API
+Por ejempo no puedes actualizar el precio del plan (debes de crear otro si quieres otro precio).
+
+### Eliminar un plan
+
+	DELETE https://api.culqi.com/v2/plans/{id}
+
+### Eliminar con POSTMAN
+
+	DELETE https://api.culqi.com/v2/plans/pln_live_7dDJvkPfp1roBXXX
+
+
+TAB: Authorization : Type = No Auth
+TAB: Headers
+	
+	# autollenable
+	Content-Type	application/x-www-form-urlencoded
+	.
+	.
+	Authorization	Bearer sk_live_FTsYxsurZUIUoXXX
+
+El parametro de autenticacion en la **llave privada** que culqi te proporciona
+
+
+![DELETE REST CULQI](https://imgur.com/t5bSjuy)
