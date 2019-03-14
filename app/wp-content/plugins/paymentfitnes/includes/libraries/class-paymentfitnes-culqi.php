@@ -7,12 +7,9 @@ class PaymentFitnesCulqi {
 	public static $PUBLIC_KEY = 'pk_test_tSSZYaWVxtNULtvX';
 	public static $PRIVATE_KEY = 'sk_test_NeloGflgK7XYFNRt';
 
-	// public static $PLAN_10_DIARIO = 'pln_live_7dDJvkPfp1roB9ga';
-	// public static $PLAN_10_NUMBER = 1000;
-	// public static $PLAN_10_DESCRIPTION = 'Suscripción diaria';
 
-	public static $PLAN_50_MENSUAL = 'pln_test_2MVFw5f97V6j5iok';
-	public static $PLAN_50_NUMBER = 5000;
+	public static $PLAN_50_MENSUAL = 'pln_test_2MVFw5f97V6j5iok'; // revisar si este token pertenece al valor de 53 SOLES
+	public static $PLAN_50_NUMBER = 5300;
 	public static $PLAN_50_DESCRIPTION = 'Suscripción mensual';
 
 	public static $CURRENCY_CODE = 'PEN';
